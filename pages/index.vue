@@ -108,10 +108,10 @@ onMounted(async () => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        client_id: import.meta.env.VITE_INSTAGRAM_APP_ID,
-        client_secret: import.meta.env.VITE_INSTAGRAM_APP_SECRET,
+        client_id: process.env.VITE_INSTAGRAM_APP_ID,
+        client_secret: process.env.VITE_INSTAGRAM_APP_SECRET,
         grant_type: 'authorization_code',
-        redirect_uri: import.meta.env.VITE_INSTAGRAM_REDIRECT_URI,
+        redirect_uri: process.env.VITE_INSTAGRAM_REDIRECT_URI,
         code: code
       })
     })
@@ -119,7 +119,7 @@ onMounted(async () => {
     const shortLivedTokenData = await shortLivedTokenResponse.json()
 
     // Step 2: Exchange short-lived token for long-lived token
-    const longLivedTokenResponse = await fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${import.meta.env.VITE_INSTAGRAM_APP_SECRET}&access_token=${shortLivedTokenData.access_token}`, {
+    const longLivedTokenResponse = await fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.VITE_INSTAGRAM_APP_SECRET}&access_token=${shortLivedTokenData.access_token}`, {
       method: 'GET'
     })
 
