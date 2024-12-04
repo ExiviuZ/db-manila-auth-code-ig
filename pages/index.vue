@@ -1,3 +1,4 @@
+// pages/index.vue
 <template>
   <div class="container mx-auto p-6">
     <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -75,7 +76,7 @@ const copyToken = () => {
 
 const copyUserId = () => {
   if (userIdInput.value) {
-    userIdInput.value.select()
+    userIdInput.select()
     navigator.clipboard.writeText(tokenData.value.user_id)
     userIdCopied.value = true
     setTimeout(() => {
@@ -85,7 +86,7 @@ const copyUserId = () => {
 }
 
 onMounted(async () => {
-  const urlParams = new URLSearchParams(window.location.search)
+  const urlParams = new URLSearchParams(window.location.search.replace(/#_$/, ''))
   
   // Check for error parameters first
   if (urlParams.get('error')) {
@@ -108,10 +109,10 @@ onMounted(async () => {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        client_id: process.env.VITE_INSTAGRAM_APP_ID,
-        client_secret: process.env.VITE_INSTAGRAM_APP_SECRET,
+        client_id: process.env.NUXT_INSTAGRAM_APP_ID,
+        client_secret: process.env.NUXT_INSTAGRAM_APP_SECRET,
         grant_type: 'authorization_code',
-        redirect_uri: process.env.VITE_INSTAGRAM_REDIRECT_URI,
+        redirect_uri: process.env.NUXT_INSTAGRAM_REDIRECT_URI,
         code: code
       })
     })
@@ -119,7 +120,7 @@ onMounted(async () => {
     const shortLivedTokenData = await shortLivedTokenResponse.json()
 
     // Step 2: Exchange short-lived token for long-lived token
-    const longLivedTokenResponse = await fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.VITE_INSTAGRAM_APP_SECRET}&access_token=${shortLivedTokenData.access_token}`, {
+    const longLivedTokenResponse = await fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.NUXT_INSTAGRAM_APP_SECRET}&access_token=${shortLivedTokenData.access_token}`, {
       method: 'GET'
     })
 
