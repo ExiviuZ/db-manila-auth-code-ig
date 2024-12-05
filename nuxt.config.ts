@@ -6,8 +6,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       instagramAppId: process.env.NUXT_INSTAGRAM_APP_ID,
-      instagramRedirectUri: process.env.NUXT_INSTAGRAM_REDIRECT_URI
+      instagramRedirectUri: process.env.NUXT_INSTAGRAM_REDIRECT_URI,
+      instagramAppSecret: process.env.NUXT_INSTAGRAM_APP_SECRET
     },
-    instagramAppSecret: process.env.NUXT_INSTAGRAM_APP_SECRET
   }
 })
