@@ -1,6 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center p-4">
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex flex-col items-center justify-center p-4">
+    <!-- Logo Section -->
+    <div class="mb-8 flex items-center">
+      <img 
+        src="~/assets/logo.png" 
+        alt="Company Logo" 
+        class="w-24 h-24 object-contain drop-shadow-lg"
+      />
+    </div>
+
     <div class="w-full max-w-md bg-white shadow-2xl rounded-2xl overflow-hidden">
+      <!-- Error Handling Section -->
       <div 
         v-if="error" 
         class="bg-red-500 text-white px-6 py-4 flex items-center space-x-4"
@@ -14,6 +24,7 @@
         </div>
       </div>
 
+      <!-- Authentication Code Section -->
       <div v-if="code" class="p-6">
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-2xl font-bold text-gray-800">Instagram Auth Code</h2>
@@ -24,12 +35,13 @@
           </div>
         </div>
 
-        <div class="bg-gray-100 rounded-lg p-4 mb-4 flex items-center space-x-4">
+        <!-- Code Display -->
+        <div class="bg-gray-100 rounded-lg p-4 mb-4 flex items-center space-x-4 shadow-inner">
           <input 
             type="text" 
             :value="code" 
             readonly 
-            class="flex-grow bg-transparent text-gray-700 font-mono tracking-wider"
+            class="flex-grow bg-transparent text-gray-700 font-mono tracking-wider select-all"
           />
           <button 
             @click="copyCode" 
@@ -54,7 +66,8 @@
           </button>
         </div>
 
-        <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+        <!-- Expiration Timer -->
+        <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3 shadow-sm">
           <div class="flex items-center space-x-2">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
