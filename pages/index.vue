@@ -153,18 +153,8 @@ onMounted(() => {
         return;
     }
 
-    // Check if an expiration timestamp exists in localStorage
-    const storedExpiration = localStorage.getItem('authCodeExpiration');
-    const currentTime = Math.floor(Date.now() / 1000);
-
-    if (storedExpiration && storedExpiration > currentTime) {
-        // Use the remaining time if it's valid
-        timeRemaining.value = storedExpiration - currentTime;
-    } else {
-        // Calculate the new expiration timestamp
-        const expirationTimestamp = currentTime + timeRemaining.value;
-        localStorage.setItem('authCodeExpiration', expirationTimestamp);
-    }
+    // Always reset timer to 60 minutes without using localStorage
+    timeRemaining.value = 3600;
 
     // Start countdown
     countdownInterval.value = setInterval(() => {
@@ -174,7 +164,6 @@ onMounted(() => {
             clearInterval(countdownInterval.value);
             code.value = null;
             error.value = 'Authorization code has expired';
-            localStorage.removeItem('authCodeExpiration'); // Clear stored expiration
         }
     }, 1000);
 });
